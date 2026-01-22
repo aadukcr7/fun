@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>A Special Question 💙</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    background: radial-gradient(circle at center, #001f3f, #003366);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: white;
+    transition: background 1.5s ease;
+  }
+
+  .screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1.2s ease;
+  }
+
+  .screen.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  h1 {
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  p {
+    font-size: 1.2rem;
+    text-align: center;
+    max-width: 340px;
+    line-height: 1.6;
+  }
+
+  button {
+    margin-top: 25px;
+    padding: 12px 28px;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #4da6ff, #0066cc);
+    color: white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  }
+
+  /* GLOWING HEART */
+  .heart-container {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    margin-bottom: 20px;
+    animation: pulse 2s infinite;
+  }
+
+  .heart {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background: #ff6fae;
+    transform: rotate(45deg);
+    top: 30px;
+    left: 30px;
+    box-shadow: 0 0 25px rgba(255,120,180,0.8);
+  }
+
+  .heart::before,
+  .heart::after {
+    content: "";
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background: #ff6fae;
+    border-radius: 50%;
+  }
+
+  .heart::before { top: -40px; left: 0; }
+  .heart::after { left: -40px; top: 0; }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+  }
+
+  /* FLOATING STARS */
+  .star {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: #b3e0ff;
+    border-radius: 50%;
+    opacity: 0;
+    animation: starFloat 4s infinite;
+  }
+
+  @keyframes starFloat {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-120vh); opacity: 0; }
+  }
+
+  /* HEART CELEBRATION */
+  .float-heart {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background: pink;
+    transform: rotate(45deg);
+    animation: floatUp 4s linear infinite;
+  }
+
+  .float-heart::before,
+  .float-heart::after {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background: pink;
+    border-radius: 50%;
+  }
+
+  .float-heart::before { top: -9px; left: 0; }
+  .float-heart::after { left: -9px; top: 0; }
+
+  @keyframes floatUp {
+    from { transform: translateY(0) rotate(45deg); opacity: 1; }
+    to { transform: translateY(-120vh) rotate(45deg); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SCREEN 1 -->
+<div class="screen active" id="screen1">
+  <h1>Hi 💙</h1>
+  <p>I made something special just for you…</p>
+  <button onclick="goToScreen(2)">Continue</button>
+</div>
+
+<!-- SCREEN 2 -->
+<div class="screen" id="screen2">
+  <h1>Some feelings… ✨</h1>
+  <p>They quietly grow deeper with every moment we share.</p>
+  <button onclick="goToScreen(3)">Next</button>
+</div>
+
+<!-- SCREEN 3 -->
+<div class="screen" id="screen3">
+  <div class="heart-container">
+    <div class="heart"></div>
+  </div>
+  <p>And my heart has something important to say… 💖</p>
+  <button onclick="goToScreen(4)">One Last Thing</button>
+</div>
+
+<!-- SCREEN 4 -->
+<div class="screen" id="screen4">
+  <h1>Will you be my special person? 💍</h1>
+  <button onclick="finalYes()">Yes 💙</button>
+</div>
+
+<!-- SCREEN 5 -->
+<div class="screen" id="screen5">
+  <h1>You just made this moment unforgettable 💖</h1>
+  <p>Thank you for being part of this beautiful story.</p>
+</div>
+
+<script>
+  function goToScreen(n) {
+    document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+    document.getElementById("screen" + n).classList.add("active");
+
+    if(n === 2){
+      document.body.style.background = "radial-gradient(circle at center, #002b5c, #001a33)";
+    }
+    if(n === 3){
+      document.body.style.background = "radial-gradient(circle at center, #3b82f6, #1e3a8a)";
+      createStars();
+    }
+    if(n === 4){
+      document.body.style.background = "radial-gradient(circle at center, #1e3a8a, #0f172a)";
+    }
+  }
+
+  function finalYes(){
+    goToScreen(5);
+    document.body.style.background = "radial-gradient(circle at center, #ff9a9e, #fad0c4)";
+    createHearts();
+  }
+
+  function createStars(){
+    for(let i=0;i<40;i++){
+      const star = document.createElement("div");
+      star.classList.add("star");
+      star.style.left = Math.random()*100 + "vw";
+      star.style.bottom = "-10px";
+      star.style.animationDelay = (Math.random()*3) + "s";
+      document.body.appendChild(star);
+
+      setTimeout(()=>star.remove(), 5000);
+    }
+  }
+
+  function createHearts(){
+    for(let i=0;i<40;i++){
+      const heart = document.createElement("div");
+      heart.classList.add("float-heart");
+      heart.style.left = Math.random()*100 + "vw";
+      heart.style.bottom = "-20px";
+      heart.style.animationDelay = (Math.random()*3) + "s";
+      document.body.appendChild(heart);
+
+      setTimeout(()=>heart.remove(), 5000);
+    }
+  }
+</script>
+
+</body>
+</html>
